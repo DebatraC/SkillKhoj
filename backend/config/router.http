@@ -1,0 +1,28 @@
+POST http://localhost:5000/api/courses
+Content-Type: application/json
+
+{
+    "title": "Introduction to Python",
+    "link": "https://www.example.com/python-course",
+    "description": "A beginner-friendly course on Python programming."
+}
+
+###
+
+DELETE http://localhost:5000/api/courses/6889b652dcd3733e308a0e53
+
+###
+
+GET http://localhost:5000/api/courses
+
+###
+
+PATCH http://localhost:5000/api/courses/6889fd53e5ec85542afe4f0e
+Content-Type: application/json
+
+{
+    "title": "Advanced Python Programming",
+    "link": "https://www.example.com/advanced-python-course",
+    "description": "An advanced course on Python programming techniques."
+}
+

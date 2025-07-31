@@ -1,0 +1,33 @@
+CCCV
+
+Login/Signup- Student (Free or Premium), Recruiter, Mentors, Admin/Developers (us)
+
+Student - Homepage Top 5 courses Recommended for You
+0. Profile page (Yes)
+	a. Basic Details
+	b. CV
+	c. Activity on platform 
+1. Courses -  (Yes)
+2. Competitions
+3. Leaderboard
+4. Mentorship + Mock Interview
+5. Live Interview (Yes)
+6. Openings (Yes)
+7. Pay for Premium.
+
+Mentors - (After 31st)
+0. Bookings - Upcoming bookings, Completed Bookings
+1. Metrics Dashboard
+2. Payment
+3. Services - (Mock Interview, Career guidance)
+
+Recruiters -
+0. Post openings (Yes)
+	a. Job Description
+	b. Salary range
+	c. Candidate qualifications
+	d. Deadline
+1. Posting-wise page (Yes)
+2. Application list + Shotlisted + Offer raised (Yes)
+
+
