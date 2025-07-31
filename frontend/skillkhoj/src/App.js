@@ -8,6 +8,7 @@ import { MainLayout, AuthLayout, DashboardLayout } from './layouts';
 
 // Auth Components
 import { Login, Register, ForgotPassword, ResetPassword } from './features/auth';
+import {useAuth}  from './hooks/useAuth';
 
 // Dashboard Components
 import { 
@@ -25,7 +26,7 @@ import { Profile, EditProfile } from './features/profile';
 
 // Mentorship Components
 import { 
-  MentorList, 
+  MentorshipList, 
   BookSession, 
   SessionHistory, 
   MockInterview 
@@ -51,8 +52,8 @@ import { JobList, JobDetail, PostJob } from './features/openings';
 // Protected Route Component
 import ProtectedRoute from './components/ProtectedRoute';
 
-// Home Component
-import Home from './pages/Home';
+// // Home Component
+// import Home from './pages/Home';
 
 // CSS
 import './App.css';
@@ -127,7 +128,7 @@ function App() {
                 />
 
                 {/* Mentorship */}
-                <Route path="mentors" element={<MentorList />} />
+                <Route path="mentors" element={<MentorshipList />} />
                 <Route 
                   path="mentors/:id" 
                   element={
@@ -244,24 +245,24 @@ const DashboardRouter = () => {
   }
 };
 
-// Protected Route Component
-const ProtectedRoute = ({ children, requiredRole = null }) => {
-  const { isAuthenticated, user, isLoading } = useAuth();
+// // Protected Route Component
+// const ProtectedRoute = ({ children, requiredRole = null }) => {
+//   const { isAuthenticated, user, isLoading } = useAuth();
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+//   if (isLoading) {
+//     return <div>Loading...</div>;
+//   }
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
+//   if (!isAuthenticated) {
+//     return <Navigate to="/login" replace />;
+//   }
 
-  if (requiredRole && user?.role !== requiredRole) {
-    return <Navigate to="/dashboard" replace />;
-  }
+//   if (requiredRole && user?.role !== requiredRole) {
+//     return <Navigate to="/dashboard" replace />;
+//   }
 
-  return children;
-};
+//   return children;
+// };
 
 // Home Component
 const Home = () => {
@@ -321,7 +322,8 @@ const Home = () => {
 
 // Mentor Detail Component (simple placeholder)
 const MentorDetail = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
+  const { id } = "xyz"; // Placeholder for mentor ID
   return (
     <div>
       <h1>Mentor Profile</h1>

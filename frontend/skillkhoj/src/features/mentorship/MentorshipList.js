@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Button, Input, Loading } from '../../components';
 
-const MentorList = () => {
+const MentorshipList = () => {
   const [mentors, setMentors] = useState([]);
   const [filteredMentors, setFilteredMentors] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -374,4 +374,4 @@ const MentorList = () => {
   );
 };
 
-export default MentorList;
+export default MentorshipList;

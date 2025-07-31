@@ -18,7 +18,21 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ['Student', 'Recruiter', 'Admin'],
     required: true
-  }
+  },
+  registeredCourses: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Course'
+  }],
+
+  recommendedCourses: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Course'
+  }],
+
+  jobPostings: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'JobPosting'
+  }]
 }, {
   timestamps: true,
 });

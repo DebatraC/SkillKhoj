@@ -5,6 +5,8 @@ import { connectDB } from './config/db.js';
 import authRoutes from './routes/auth.routes.js';
 import courseRoutes from './routes/course.route.js';
 import userRoutes from './routes/user.routes.js';
+import studentHomepageRoutes from './routes/studentHomepage.route.js';
+import recruiterRoutes from './routes/recruiter.routes.js';
 
 dotenv.config();
 
@@ -15,6 +17,10 @@ app.use(express.json()); // Middleware to parse JSON bodies
 app.use("/api/auth", authRoutes)
 app.use("/api/courses", courseRoutes); // Use course routes
 app.use("/api/user",  userRoutes);
+
+app.use("/api/student", studentHomepageRoutes);
+
+app.use("/api/recruiter", recruiterRoutes);
 
 
 app.listen(5000, () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Alert.css';
+// import './Alert.css';
 
 const Alert = ({ type = 'info', message, onClose, className = '' }) => {
   return (
