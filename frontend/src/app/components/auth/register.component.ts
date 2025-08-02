@@ -25,7 +25,7 @@ export class RegisterComponent {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
       role: ['student', [Validators.required]] // Default to student
     }, { validators: this.passwordMatchValidator });

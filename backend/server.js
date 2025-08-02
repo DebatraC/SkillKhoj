@@ -8,11 +8,19 @@ import userRoutes from './routes/user.routes.js';
 import studentHomepageRoutes from './routes/studentHomepage.route.js';
 import recruiterRoutes from './routes/recruiter.routes.js';
 
+import cors from 'cors';
+
 dotenv.config();
 
 const app = express();
 
 app.use(express.json()); // Middleware to parse JSON bodies
+
+// In your backend server (Express.js example)
+app.use(cors({
+  origin: 'http://localhost:4200', // Your Angular dev server
+  credentials: true
+}));
 
 app.use("/api/auth", authRoutes)
 app.use("/api/courses", courseRoutes); // Use course routes
@@ -21,6 +29,8 @@ app.use("/api/user",  userRoutes);
 app.use("/api/student", studentHomepageRoutes);
 
 app.use("/api/recruiter", recruiterRoutes);
+
+
 
 
 app.listen(5000, () => {
