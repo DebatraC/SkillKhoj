@@ -26,17 +26,17 @@
         <h2>Quick Actions</h2>
         <div class="actions">
           <ng-container [ngSwitch]="currentUser.role">
-            <div *ngSwitchCase="'student'">
+            <div *ngSwitchCase="'Student'">
               <button class="action-btn">Browse Courses</button>
-              <button class="action-btn">View Profile</button>
+              <button class="action-btn" routerLink="/profile">View Profile</button>
               <button class="action-btn">Job Search</button>
             </div>
-            <div *ngSwitchCase="'recruiter'">
+            <div *ngSwitchCase="'Recruiter'">
               <button class="action-btn">Post Job</button>
               <button class="action-btn">View Applications</button>
               <button class="action-btn">Manage Profile</button>
             </div>
-            <div *ngSwitchCase="'admin'">
+            <div *ngSwitchCase="'Admin'">
               <button class="action-btn">Manage Users</button>
               <button class="action-btn">Manage Courses</button>
               <button class="action-btn">System Settings</button>

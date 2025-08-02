@@ -1,0 +1,142 @@
+<div class="profile-container">
+  <!-- Header -->
+  <header class="profile-header">
+    <div class="header-content">
+      <div class="header-left">
+        <h1 class="page-title">Student Profile</h1>
+        <p class="page-subtitle">Manage your personal information</p>
+      </div>
+      <div class="header-right">
+        <button class="logout-btn" (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="isLoading && !profile">
+    <div class="loading-spinner"></div>
+    <p>Loading profile...</p>
+  </div>
+
+  <!-- Error State -->
+  <div class="error-container" *ngIf="errorMessage && !profile">
+    <div class="error-card">
+      <h3>Error</h3>
+      <p>{{ errorMessage }}</p>
+      <button class="retry-btn" (click)="loadProfile()">Retry</button>
+    </div>
+  </div>
+
+  <!-- Profile Content -->
+  <main class="profile-main" *ngIf="profile && !isLoading">
+    <div class="profile-card">
+      <!-- Profile Header -->
+      <div class="profile-card-header">
+        <div class="avatar">
+          <span class="avatar-text">{{ profile.name.charAt(0).toUpperCase() }}</span>
+        </div>
+        <div class="profile-info">
+          <h2>{{ profile.name }}</h2>
+          <p class="role-badge">Student</p>
+        </div>
+        <div class="edit-actions">
+          <button 
+            class="edit-btn" 
+            (click)="toggleEdit()"
+            *ngIf="!isEditing"
+          >
+            Edit Profile
+          </button>
+          <button 
+            class="cancel-btn" 
+            (click)="toggleEdit()"
+            *ngIf="isEditing"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+
+      <!-- Profile Form -->
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile-form">
+        <!-- Basic Details Section -->
+        <div class="form-section">
+          <h3 class="section-title">Basic Details</h3>
+          
+          <!-- Name Field -->
+          <div class="form-group">
+            <label for="name" class="form-label">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              class="form-input"
+              [class.error]="name?.invalid && name?.touched"
+              [readonly]="!isEditing"
+              placeholder="Enter your full name"
+            >
+            <div class="error-message" *ngIf="name?.invalid && name?.touched">
+              <span *ngIf="name?.errors?.['required']">Name is required</span>
+              <span *ngIf="name?.errors?.['minlength']">Name must be at least 2 characters</span>
+            </div>
+          </div>
+
+          <!-- Email Field -->
+          <div class="form-group">
+            <label for="email" class="form-label">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              class="form-input"
+              [class.error]="email?.invalid && email?.touched"
+              [readonly]="!isEditing"
+              placeholder="Enter your email"
+            >
+            <div class="error-message" *ngIf="email?.invalid && email?.touched">
+              <span *ngIf="email?.errors?.['required']">Email is required</span>
+              <span *ngIf="email?.errors?.['email']">Please enter a valid email</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CV Section (Placeholder for future) -->
+        <div class="form-section">
+          <h3 class="section-title">CV & Documents</h3>
+          <div class="placeholder-section">
+            <p class="placeholder-text">CV upload functionality coming soon...</p>
+          </div>
+        </div>
+
+        <!-- Activity Section (Placeholder for future) -->
+        <div class="form-section">
+          <h3 class="section-title">Platform Activity</h3>
+          <div class="placeholder-section">
+            <p class="placeholder-text">Activity tracking coming soon...</p>
+          </div>
+        </div>
+
+        <!-- Success/Error Messages -->
+        <div class="success-message" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+
+        <div class="error-message global-error" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-actions" *ngIf="isEditing">
+          <button
+            type="submit"
+            class="save-btn"
+            [disabled]="!profileForm.valid || isLoading"
+          >
+            <span *ngIf="!isLoading">Save Changes</span>
+            <span *ngIf="isLoading" class="loading">Saving...</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>

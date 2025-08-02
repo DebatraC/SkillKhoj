@@ -47,9 +47,9 @@
           class="form-input"
           [class.error]="role?.invalid && role?.touched"
         >
-          <option value="student">Student</option>
-          <option value="recruiter">Recruiter</option>
-          <option value="admin">Admin</option>
+          <option value="Student">Student</option>
+          <option value="Recruiter">Recruiter</option>
+          <option value="Admin">Admin</option>
         </select>
         <div class="error-message" *ngIf="role?.invalid && role?.touched">
           <span *ngIf="role?.errors?.['required']">Role is required</span>
