@@ -44,7 +44,43 @@ export const userLogin = async (req, res) => {
         
         // Generate JWT token
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '3h' });
-        res.status(200).json({message: 'Login Successful', token});
+        if(user.role.toLowerCase() === 'student') {
+            const registeredCourses = await user.populate('registeredCourses')
+            const recommendedCourses = await user.populate('recommendedCourses')
+            res.status(200).json(
+            {message: 'Login Successful',
+             token,
+             user: {
+                 id: user._id,
+                 name: user.name,
+                 email: user.email,
+                 role: user.role,
+                 registeredCourses: registeredCourses,
+                 recommendedCourses: recommendedCourses
+             }});
+        } else if(user.role.toLowerCase() === 'recruiter') {
+            res.status(200).json(
+            {message: 'Login Successful',
+             token,
+             user: {
+                 id: user._id,
+                 name: user.name,
+                 email: user.email,
+                 role: user.role,
+                 jobPostings: user.jobPostings
+             }});
+        } else if(user.role.toLowerCase() === 'recruiter') {
+            res.status(200).json(
+            {message: 'Login Successful',
+             token,
+             user: {
+                 id: user._id,
+                 name: user.name,
+                 email: user.email,
+                 role: user.role
+             }});
+        }
+        
     } catch(error) {
         console.error(error);
         res.status(500).json({message: 'Server error'});

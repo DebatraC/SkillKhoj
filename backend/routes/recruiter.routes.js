@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { recruiterProfilePage } from '../controller/recruiter/recruiterProfilepage.controller.js';
+import { recruiterProfilePage, updateRecruiterProfile } from '../controller/recruiter/recruiterProfilepage.controller.js';
 import { recruiterHomepage } from '../controller/recruiter/recruiterHomepage.controller.js';
 import { createJobPosting } from '../controller/recruiter/recruiterCreateJobPosting.controller.js';
 
@@ -10,6 +10,7 @@ import authorizeRoles from '../middleware/role.middleware.js';
 const router = express.Router();
 
 router.get('/:id/profile',  verifyToken, authorizeRoles('Recruiter', 'Admin'), recruiterProfilePage);
+router.put('/:id/profile',  verifyToken, authorizeRoles('Recruiter', 'Admin'), updateRecruiterProfile);
 router.get('/:id/homepage', verifyToken, authorizeRoles('Recruiter', 'Admin'), recruiterHomepage);
 router.post("/:id/createJobPosting", verifyToken, authorizeRoles('Recruiter', 'Admin'), createJobPosting);
 

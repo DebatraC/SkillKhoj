@@ -115,6 +115,10 @@ export class StudentProfileComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  goBack() {
+    this.router.navigate(['/student/homepage']);
+  }
+
   get name() { return this.profileForm.get('name'); }
   get email() { return this.profileForm.get('email'); }
 }

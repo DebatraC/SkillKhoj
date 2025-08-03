@@ -38,7 +38,21 @@ export class LoginComponent {
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
           console.log('Login successful:', response);
-          this.router.navigate(['/dashboard']); // Redirect after successful login
+          
+          // Get the current user from AuthService
+          this.authService.currentUser$.subscribe(user => {
+            if (user) {
+              console.log('Current user:', user);
+              // Route to frontend pages, not API endpoints
+              if (user.role.toLowerCase() === 'student') {
+                this.router.navigate(['/student/homepage']);
+              } else if (user.role.toLowerCase() === 'recruiter') {
+                this.router.navigate(['/recruiter/homepage']);
+              } else {
+                this.router.navigate(['/dashboard']); // Fallback
+              }
+            }
+          }).unsubscribe(); // Unsubscribe immediately after getting the user
         },
         error: (error) => {
           this.isLoading = false;

@@ -4,11 +4,23 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 
+export interface Course {
+  id: string;
+  title: string;
+  description: string;
+  link: string;
+  instructor?: string;
+  duration?: string;
+}
+
 export interface User {
   id: string;
   name: string;
   email: string;
   role: string;
+  jobPostings?: Object[];
+  registeredCourses?: Course[]; // Properly typed for courses
+  recommendedCourses?: Course[]; // Properly typed for courses
 }
 
 export interface LoginRequest {
@@ -26,6 +38,7 @@ export interface RegisterRequest {
 export interface AuthResponse {
   message: string;
   token?: string;
+  user: User; // Add user to response
 }
 
 @Injectable({
@@ -51,6 +64,7 @@ export class AuthService {
   }
 
   register(userData: RegisterRequest): Observable<AuthResponse> {
+    console.log('Registering user:', userData);
     return this.http.post<AuthResponse>(`${this.baseUrl}/register`, userData);
   }
 
@@ -61,6 +75,12 @@ export class AuthService {
           if (response.token) {
             this.setToken(response.token);
             this.loadUserFromToken(response.token);
+
+            // Store user in localStorage
+            localStorage.setItem('currentUser', JSON.stringify(response.user));
+            
+            // Update currentUser subject
+            this.currentUserSubject.next(response.user);
           }
         })
       );
@@ -70,6 +90,7 @@ export class AuthService {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('token');
     }
+    localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
 
@@ -94,7 +115,10 @@ export class AuthService {
         id: payload.id,
         name: payload.name || '',
         email: payload.email || '',
-        role: payload.role || ''
+        role: payload.role || '',
+        jobPostings: payload.jobPostings || [],
+        registeredCourses: payload.registeredCourses || [],
+        recommendedCourses: payload.recommendedCourses || []
       };
       this.currentUserSubject.next(user);
     } catch (error) {
