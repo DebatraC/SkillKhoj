@@ -16,9 +16,23 @@ const app = express();
 
 app.use(express.json()); // Middleware to parse JSON bodies
 
+const allowedOrigins = [
+  'http://localhost:4200', // Development
+  'https://skill-khoj.vercel.app', // Production frontend URL
+];
+
 // In your backend server (Express.js example)
 app.use(cors({
-  origin: 'http://localhost:4200', // Your Angular dev server
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 
@@ -31,12 +45,14 @@ app.use("/api/student", studentHomepageRoutes);
 app.use("/api/recruiter", recruiterRoutes);
 
 
+const PORT = process.env.PORT || 5000;
 
-
-app.listen(5000, () => {
+app.listen(PORT, () => {
     connectDB();
-  console.log('Server is running on port 5000');
+  console.log(`Server is running on port ${PORT}`);
 });
+
+export default app;
 
 //rZ9N5GtFU9IEBDXF
 //debatrachatterjee24
