@@ -44,6 +44,15 @@ app.use(cors({
   credentials: true
 }));
 
+// Health check endpoint
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Skill Khoj API is running!',
+    timestamp: new Date().toISOString(),
+    env: process.env.NODE_ENV
+  });
+});
+
 app.use("/api/auth", authRoutes)
 app.use("/api/courses", courseRoutes); // Use course routes
 app.use("/api/user",  userRoutes);
@@ -52,15 +61,35 @@ app.use("/api/student", studentHomepageRoutes);
 
 app.use("/api/recruiter", recruiterRoutes);
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Error:', err);
+  res.status(500).json({ 
+    message: 'Internal Server Error',
+    error: process.env.NODE_ENV === 'production' ? {} : err.message 
+  });
+});
+
+// 404 handler
+app.use('*', (req, res) => {
+  res.status(404).json({ message: 'Route not found' });
+});
+
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-    connectDB();
-  console.log(`Server is running on port ${PORT}`);
-});
+// Connect to database
+connectDB();
 
+// For Vercel, we need to export the app
 export default app;
+
+// For local development only
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
 
 //rZ9N5GtFU9IEBDXF
 //debatrachatterjee24
