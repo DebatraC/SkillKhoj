@@ -2,19 +2,19 @@ import { RenderMode, ServerRoute } from '@angular/ssr';
 
 export const serverRoutes: ServerRoute[] = [
   {
-    path: '/recruiter/job/:jobId/applicants',
+    path: 'recruiter/job/:jobId/applicants',
     renderMode: RenderMode.Server
   },
   {
-    path: '/login',
+    path: 'login',
     renderMode: RenderMode.Prerender
   },
   {
-    path: '/register',
+    path: 'register',
     renderMode: RenderMode.Prerender
   },
   {
-    path: '/unauthorized',
+    path: 'unauthorized',
     renderMode: RenderMode.Prerender
   },
   {
