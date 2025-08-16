@@ -1,10 +1,12 @@
 {
   "name": "mvp---skill-khoj",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon ./backend/server.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
