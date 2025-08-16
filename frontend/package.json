@@ -8,8 +8,7 @@
     "build:prod": "ng build --configuration production",
     "vercel-build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "serve:ssr:frontend": "node dist/frontend/server/server.mjs"
+    "test": "ng test"
   },
   "prettier": {
     "overrides": [
