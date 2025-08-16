@@ -27,6 +27,7 @@ app.use(express.json()); // Middleware to parse JSON bodies
 const allowedOrigins = [
   'http://localhost:4200', // Development
   'https://skill-khoj.vercel.app', // Production frontend URL
+  'https://skill-khoj-backend.vercel.app', // Backend URL (for testing)
 ];
 
 // In your backend server (Express.js example)
