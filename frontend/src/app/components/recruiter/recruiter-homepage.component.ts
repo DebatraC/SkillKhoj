@@ -148,6 +148,7 @@ interface JobPosting {
                 <p class="description">{{job.description}}</p>
               </div>
               <div class="job-actions">
+                <button class="btn-small primary" (click)="viewJobApplicants(job.id)">View Applicants</button>
                 <button class="btn-small secondary">Edit</button>
                 <button class="btn-small danger">Delete</button>
               </div>
@@ -484,6 +485,15 @@ interface JobPosting {
       background-color: #feb2b2;
     }
 
+    .btn-small.primary {
+      background-color: #4299e1;
+      color: white;
+    }
+
+    .btn-small.primary:hover {
+      background-color: #3182ce;
+    }
+
     .no-jobs {
       text-align: center;
       padding: 60px 20px;
@@ -614,6 +624,10 @@ export class RecruiterHomepageComponent implements OnInit {
     this.showJobForm = false;
     this.jobForm.reset();
     this.errorMessage = '';
+  }
+
+  viewJobApplicants(jobId: string) {
+    this.router.navigate(['/recruiter/job', jobId, 'applicants']);
   }
 
   goToProfile() {
