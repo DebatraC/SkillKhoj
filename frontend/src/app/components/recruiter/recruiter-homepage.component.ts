@@ -597,7 +597,7 @@ export class RecruiterHomepageComponent implements OnInit {
 
       const jobData = this.jobForm.value;
 
-      this.http.post(`${environment.apiUrl}/recruiter/${this.currentUser.id}/createJobPosting`, jobData).subscribe({
+            this.http.post(`${environment.apiUrl}/recruiter/${this.currentUser.id}/createJobPosting`, jobData).subscribe({
         next: (response: any) => {
           this.successMessage = 'Job posting created successfully!';
           this.jobForm.reset();
