@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthService, User } from '../../services/auth.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-recruiter-profile',
@@ -351,7 +352,7 @@ export class RecruiterProfileComponent implements OnInit {
     if (!this.currentUser) return;
 
     this.isLoading = true;
-    this.http.get(`http://localhost:5000/api/recruiter/${this.currentUser.id}/profile`).subscribe({
+    this.http.get(`${environment.apiUrl}/recruiter/${this.currentUser.id}/profile`).subscribe({
       next: (response: any) => {
         console.log('Profile data:', response);
         this.isLoading = false;
@@ -398,7 +399,7 @@ export class RecruiterProfileComponent implements OnInit {
     this.isLoading = true;
     const profileData = this.profileForm.value;
 
-    this.http.put(`http://localhost:5000/api/recruiter/${this.currentUser.id}/profile`, profileData).subscribe({
+    this.http.put(`${environment.apiUrl}/recruiter/${this.currentUser.id}/profile`, profileData).subscribe({
       next: (response: any) => {
         console.log('Profile updated:', response);
         this.isLoading = false;

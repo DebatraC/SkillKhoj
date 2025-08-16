@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthService, User, Course } from '../../services/auth.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-student-all-courses',
@@ -330,7 +331,7 @@ export class StudentAllCoursesComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.http.get('http://localhost:5000/api/courses').subscribe({
+    this.http.get(`${environment.apiUrl}/courses`).subscribe({
       next: (response: any) => {
         console.log('All courses data:', response);
         this.isLoading = false;

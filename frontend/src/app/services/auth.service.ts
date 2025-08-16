@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
+import { environment } from '../../environments/environment';
 
 export interface Course {
   id: string;
@@ -47,7 +48,7 @@ export interface AuthResponse {
 export class AuthService {
   private http = inject(HttpClient);
   private platformId = inject(PLATFORM_ID);
-  private baseUrl = 'http://localhost:5000/api/auth'; // Adjust to your backend URL
+  private baseUrl = `${environment.apiUrl}/auth`; // Use environment configuration
   
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();

@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { environment } from '../../environments/environment';
 
 export interface StudentProfile {
   name: string;
@@ -14,7 +15,7 @@ export interface StudentProfile {
 export class ProfileService {
   private http = inject(HttpClient);
   private authService = inject(AuthService);
-  private baseUrl = 'http://localhost:5000/api/student'; // Fixed: removed 's' to match backend
+  private baseUrl = `${environment.apiUrl}/student`; // Use environment configuration
 
   getStudentProfile(userId: string): Observable<StudentProfile> {
     const token = this.authService.getToken();

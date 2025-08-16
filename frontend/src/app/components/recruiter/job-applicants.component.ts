@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 interface JobApplicant {
   _id: string;
@@ -260,7 +261,7 @@ export class JobApplicantsComponent implements OnInit {
     this.errorMessage = '';
 
     this.http.get<{ success: boolean; data: { job: JobDetails; applicants: JobApplicant[] } }>
-      (`http://localhost:5000/api/recruiter/job/${jobId}/applicants`)
+      (`${environment.apiUrl}/recruiter/job/${jobId}/applicants`)
       .subscribe({
         next: (response) => {
           this.jobDetails = response.data.job;

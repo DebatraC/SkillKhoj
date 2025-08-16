@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService, User, Course } from '../../services/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 interface JobApplication {
   _id: string;
@@ -387,7 +388,7 @@ export class StudentHomepageComponent implements OnInit {
     console.log('Loading student data for user ID:', user.id);
     
     // With interceptor, no need to manually add headers
-    this.http.get(`http://localhost:5000/api/student/${user.id}/homepage`).subscribe({
+    this.http.get(`${environment.apiUrl}/student/${user.id}/homepage`).subscribe({
       next: (response: any) => {
         console.log("Full API Response:", response);
         
@@ -425,7 +426,7 @@ export class StudentHomepageComponent implements OnInit {
   loadJobApplications() {
     if (!this.currentUser) return;
     
-    this.http.get<{ success: boolean; data: any[] }>(`http://localhost:5000/api/student/${this.currentUser.id}/jobs-applied-to`)
+    this.http.get<{ success: boolean; data: any[] }>(`${environment.apiUrl}/student/${this.currentUser.id}/jobs-applied-to`)
       .subscribe({
         next: (response) => {
           // Map the job data to match JobApplication interface structure

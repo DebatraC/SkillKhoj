@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { Router } from '@angular/router';
 import { AuthService, User } from '../../services/auth.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 interface JobPosting {
   id: string;
@@ -571,7 +572,7 @@ export class RecruiterHomepageComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.http.get(`http://localhost:5000/api/recruiter/${userId}/homepage`).subscribe({
+    this.http.get(`${environment.apiUrl}/recruiter/${userId}/homepage`).subscribe({
       next: (response: any) => {
         console.log("Recruiter data:", response);
         if (response.user) {
@@ -596,7 +597,7 @@ export class RecruiterHomepageComponent implements OnInit {
 
       const jobData = this.jobForm.value;
 
-      this.http.post(`http://localhost:5000/api/recruiter/${this.currentUser.id}/createJobPosting`, jobData).subscribe({
+      this.http.post(`${environment.apiUrl}/recruiter/${this.currentUser.id}/createJobPosting`, jobData).subscribe({
         next: (response: any) => {
           this.successMessage = 'Job posting created successfully!';
           this.jobForm.reset();

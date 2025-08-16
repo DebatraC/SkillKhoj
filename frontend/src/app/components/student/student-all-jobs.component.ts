@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthService, User } from '../../services/auth.service';
+import { environment } from '../../../environments/environment';
 
 interface JobPosting {
   _id: string;
@@ -391,7 +392,7 @@ export class StudentAllJobsComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.http.get('http://localhost:5000/api/student/jobs').subscribe({
+    this.http.get(`${environment.apiUrl}/student/jobs`).subscribe({
       next: (response: any) => {
         console.log('All jobs data:', response);
         this.isLoading = false;
@@ -417,7 +418,7 @@ export class StudentAllJobsComponent implements OnInit {
     }
 
     if (confirm('Are you sure you want to apply for this job?')) {
-      this.http.post(`http://localhost:5000/api/student/${this.currentUser.id}/apply/${jobId}`, {
+      this.http.post(`${environment.apiUrl}/student/${this.currentUser.id}/apply/${jobId}`, {
         coverLetter: '' // You can extend this to include a cover letter input
       }).subscribe({
         next: (response: any) => {
